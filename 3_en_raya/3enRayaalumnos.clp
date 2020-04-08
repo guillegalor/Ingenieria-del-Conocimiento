@@ -77,6 +77,17 @@
 (assert (Turno (read)))
 )
 
+; Comprueba si hay dos fichas en linea
+(defrule 2_en_linea
+(declare (salience 1))
+(Posicion ?i1 ?j1 ?p)
+(Posicion ?i2 ?j2 ?p)
+(en_linea ?forma ?i1 ?j1 ?i2 ?j2)
+(test (neq " " ?p))
+=>
+(assert (2_en_linea ?forma ?i1 ?j1 ?i2 ?j2 ?p))
+)
+
 ;;;;;;;;;;;;;;;;;;;;;;; RECOGER JUGADA DEL CONTRARIO ;;;;;;;;;;;;;;;;;;;;;;;
 (defrule muestra_posicion
 (declare (salience 1))
