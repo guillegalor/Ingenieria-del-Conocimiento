@@ -51,20 +51,24 @@
 (Fichas_sin_colocar X 3)
 )
 
-(defrule Conectado_es_simetrica
-(declare (salience 1))
-(Conectado ?i ?j ?forma ?i1 ?j1)
-=>
-(assert (Conectado ?i1 ?j1 ?forma ?i ?j))
-)
-
 ; Añade si dos casillas están en linea
 (defrule En_linea
 (declare (salience 1))
 (Conectado ?i1 ?j1 ?forma ?i2 ?j2)
 (Conectado ?i2 ?j2 ?forma ?i3 ?j3)
+(test (or (neq ?i1 ?i3) (neq ?j1 ?j3)))
+(not (en_linea ?forma ?i3 ?j3 ?i2 ?j2))
 =>
+(assert (en_linea ?forma ?i1 ?j1 ?i2 ?j2))
+(assert (en_linea ?forma ?i2 ?j2 ?i3 ?j3))
 (assert (en_linea ?forma ?i1 ?j1 ?i3 ?j3))
+)
+
+(defrule Conectado_es_simetrica
+(declare (salience 1))
+(Conectado ?i ?j ?forma ?i1 ?j1)
+=>
+(assert (Conectado ?i1 ?j1 ?forma ?i ?j))
 )
 
 (defrule Elige_quien_comienza
