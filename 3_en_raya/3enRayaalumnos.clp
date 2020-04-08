@@ -79,8 +79,10 @@
 ; Comprueba si hay dos fichas en linea
 (defrule 2_en_linea
 (declare (salience 2))
-(Posicion ?i1 ?j1 ?p)
-(Posicion ?i2 ?j2 ?p)
+(logical
+    (Posicion ?i1 ?j1 ?p)
+    (Posicion ?i2 ?j2 ?p)
+)
 (en_linea ?forma ?i1 ?j1 ?i2 ?j2)
 (test (neq " " ?p))
 =>
@@ -90,12 +92,31 @@
 ; Comprueba si algún jugador puede ganar colocando una ficha
 (defrule puede_ganar_colocando
 (declare (salience 1))
-(Fichas_sin_colocar ?p 1)
+(logical
+    (Fichas_sin_colocar ?p 1)
+)
 (2_en_linea ?forma ?i1 ?j1 ?i2 ?j2 ?p)
 (en_linea ?forma ?i3 ?j3 ?i1 ?j1)
 (Posicion ?i3 ?j3 " ")
 =>
 (assert (puede_ganar_colocando ?i3 ?j3 ?p))
+)
+
+; Comprueba si algún jugador puede ganar moviendo una ficha
+(defrule puede_ganar_moviendo
+(declare (salience 1))
+(logical
+    (2_en_linea ?forma ?i1 ?j1 ?i2 ?j2 ?p)
+    (Posicion ?i3 ?j3 " ")
+    (Posicion ?i4 ?j4 ?p)
+)
+(Todas_fichas_en_tablero ?p)
+(en_linea ?forma ?i3 ?j3 ?i1 ?j1)
+(test (or (neq ?i4 ?i1) (neq ?j4 ?j1)))
+(test (or (neq ?i4 ?i2) (neq ?j4 ?j2)))
+(Conectado ?i3 ?j3 ?f ?i4 ?j4)
+=>
+(assert (puede_ganar_moviendo ?i4 ?j4 ?i3 ?j3 ?p))
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;; RECOGER JUGADA DEL CONTRARIO ;;;;;;;;;;;;;;;;;;;;;;;
@@ -166,7 +187,7 @@
 )
 
 (defrule reducir_fichas_sin_colocar
-(declare (salience 1))
+(declare (salience 2))
 ?f <- (reducir_fichas_sin_colocar ?jugador)
 ?g <- (Fichas_sin_colocar ?jugador ?n)
 =>
@@ -175,7 +196,7 @@
 )
 
 (defrule todas_las_fichas_en_tablero
-(declare (salience 1))
+(declare (salience 2))
 ?f <- (Fichas_sin_colocar ?jugador 0)
 =>
 (retract ?f)
