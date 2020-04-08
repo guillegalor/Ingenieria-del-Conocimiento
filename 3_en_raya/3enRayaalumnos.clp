@@ -60,7 +60,7 @@
 
 (defrule Elige_quien_comienza
 =>
-(printout t "Quien quieres que empieze: (escribe X para la maquina u O para empezar tu) ")
+(printout t "Quien quieres que empieze: (escribe X para la maquina, O para empezar tu) ")
 (assert (Turno (read)))
 )
 
