@@ -58,6 +58,15 @@
 (assert (Conectado ?i1 ?j1 ?forma ?i ?j))
 )
 
+; Añade si dos casillas están en linea
+(defrule En_linea
+(declare (salience 1))
+(Conectado ?i1 ?j1 ?forma ?i2 ?j2)
+(Conectado ?i2 ?j2 ?forma ?i3 ?j3)
+=>
+(assert (en_linea ?forma ?i1 ?j1 ?i3 ?j3))
+)
+
 (defrule Elige_quien_comienza
 =>
 (printout t "Quien quieres que empieze: (escribe X para la maquina, O para empezar tu) ")
