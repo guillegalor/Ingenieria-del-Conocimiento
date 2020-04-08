@@ -57,7 +57,6 @@
 (Conectado ?i1 ?j1 ?forma ?i2 ?j2)
 (Conectado ?i2 ?j2 ?forma ?i3 ?j3)
 (test (or (neq ?i1 ?i3) (neq ?j1 ?j3)))
-(not (en_linea ?forma ?i3 ?j3 ?i2 ?j2))
 =>
 (assert (en_linea ?forma ?i1 ?j1 ?i2 ?j2))
 (assert (en_linea ?forma ?i2 ?j2 ?i3 ?j3))
@@ -79,13 +78,24 @@
 
 ; Comprueba si hay dos fichas en linea
 (defrule 2_en_linea
-(declare (salience 1))
+(declare (salience 2))
 (Posicion ?i1 ?j1 ?p)
 (Posicion ?i2 ?j2 ?p)
 (en_linea ?forma ?i1 ?j1 ?i2 ?j2)
 (test (neq " " ?p))
 =>
 (assert (2_en_linea ?forma ?i1 ?j1 ?i2 ?j2 ?p))
+)
+
+; Comprueba si algún jugador puede ganar colocando una ficha
+(defrule puede_ganar_colocando
+(declare (salience 1))
+(Fichas_sin_colocar ?p 1)
+(2_en_linea ?forma ?i1 ?j1 ?i2 ?j2 ?p)
+(en_linea ?forma ?i3 ?j3 ?i1 ?j1)
+(Posicion ?i3 ?j3 " ")
+=>
+(assert (puede_ganar_colocando ?i3 ?j3 ?p))
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;; RECOGER JUGADA DEL CONTRARIO ;;;;;;;;;;;;;;;;;;;;;;;
