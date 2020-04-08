@@ -1,7 +1,7 @@
 ;;;;;;; JUGADOR DE 3 en RAYA ;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;; Version de 3 en raya clásico: fichas que se pueden poner libremente en cualquier posicion libre (i,j) con 0 < i,j < 4
-;;;;;;;;;;;;;;;;;;;;;;; y cuando se han puesto las 3 fichas las jugadas consisten en desplazar una ficha propia 
+;;;;;;;;;;;;;;;;;;;;;;; y cuando se han puesto las 3 fichas las jugadas consisten en desplazar una ficha propia
 ;;;;;;;;;;;;;;;;;;;;;;; de la posición en que se encuentra (i,j) a una contigua
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -12,10 +12,9 @@
 
 ;;;;;;;;;;;;;;;; Hechos para representar una jugadas
 
-;;;;;;; (Juega X|O ?origen_i ?origen_j ?destino_i ?destino_j) representa que la jugada consiste en desplazar la ficha de la posicion 
+;;;;;;; (Juega X|O ?origen_i ?origen_j ?destino_i ?destino_j) representa que la jugada consiste en desplazar la ficha de la posicion
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; (?origen_i,?origen_j) a la posición (?destino_i,?destino_j)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; las fichas que se ponen inicialmente se supondrá que están en el posición (0,0)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; INICIALIZAR ESTADO
 
@@ -61,7 +60,7 @@
 
 (defrule Elige_quien_comienza
 =>
-(printout t "Quien quieres que empieze: (escribre X para la maquina u O para empezar tu) ")
+(printout t "Quien quieres que empieze: (escribe X para la maquina u O para empezar tu) ")
 (assert (Turno (read)))
 )
 
@@ -100,7 +99,7 @@
 =>
 (assert (muestra_posicion))
 )
- 
+
 (defrule jugada_contrario_fichas_sin_colocar
 ?f <- (Turno O)
 (Fichas_sin_colocar O ?n)
@@ -210,8 +209,6 @@
 (assert (Turno X) (Posicion ?destino_i ?destino_j O) (Posicion ?origen_i ?origen_j " ") )
 )
 
-
-
 ;;;;;;;;;;; ACTUALIZAR  ESTADO TRAS JUGADA DE CLISP ;;;;;;;;;;;;;;;;;;
 
 (defrule juega_clisp_actualiza_estado
@@ -222,7 +219,6 @@
 (retract ?f ?g ?h)
 (assert (Turno O) (Posicion ?destino_i ?destino_j X) (Posicion ?origen_i ?origen_j " ") )
 )
-
 
 ;;;;;;;;;;; CLISP JUEGA SIN CRITERIO ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defrule clisp_juega_sin_criterio_fichas_sin_colocar
@@ -263,6 +259,4 @@
 (printout t ?jugador " ha ganado pues tiene tres en raya " ?i1 ?j1 " " ?i2 ?j2 " " ?i3 ?j3 crlf)
 (retract ?f)
 (assert (muestra_posicion))
-) 
-
-
+)
