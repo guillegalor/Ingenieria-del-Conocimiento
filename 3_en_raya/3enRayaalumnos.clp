@@ -300,6 +300,61 @@
 (retract ?f)
 )
 
+;;;;;;;;;;; CLISP JUEGA DEFENSIVO ;;;;;;;;;;;
+(defrule clisp_juega_def_fichas_sin_colocar
+(declare (salience -9998))
+?f<- (Turno X)
+(Fichas_sin_colocar X ?n)
+(or (puede_ganar_colocando ?i ?j O) (puede_ganar_moviendo ? ? ?i ?j O))
+?g<- (Posicion ?i ?j " ")
+=>
+(printout t "Juego poner ficha en " ?i ?j crlf)
+(printout t "DEF" crlf)
+(retract ?f ?g)
+(assert (Posicion ?i ?j X) (Turno O) (reducir_fichas_sin_colocar X))
+)
+
+(defrule clisp_juega_def
+(declare (salience -9998))
+?f<- (Turno X)
+(Todas_fichas_en_tablero X)
+(puede_ganar_moviendo ? ? ?destino_i ?destino_j O)
+(Posicion ?origen_i ?origen_j X)
+(Conectado ?origen_i ?origen_j ? ?destino_i ?destino_j)
+=>
+(assert (Juega X ?origen_i ?origen_j ?destino_i ?destino_j))
+(printout t "Juego mover la ficha de "  ?origen_i ?origen_j " a " ?destino_i ?destino_j crlf)
+(printout t "DEF" crlf)
+(retract ?f)
+)
+
+;;;;;;;;;;; CLISP JUEGA GREEDY ;;;;;;;;;;;
+(defrule clisp_juega_greedy_fichas_sin_colocar
+(declare (salience -9997))
+?f<- (Turno X)
+(Fichas_sin_colocar X ?n)
+(puede_ganar_colocando ?i ?j X)
+?g<- (Posicion ?i ?j " ")
+=>
+(printout t "Juego poner ficha en " ?i ?j crlf)
+(printout t "GREEDY" crlf)
+(retract ?f ?g)
+(assert (Posicion ?i ?j X) (Turno O) (reducir_fichas_sin_colocar X))
+)
+
+(defrule clisp_juega_greedy
+(declare (salience -9997))
+?f<- (Turno X)
+(Todas_fichas_en_tablero X)
+(puede_ganar_moviendo ?origen_i ?origen_j ?destino_i ?destino_j X)
+=>
+(assert (Juega X ?origen_i ?origen_j ?destino_i ?destino_j))
+(printout t "Juego mover la ficha de "  ?origen_i ?origen_j " a " ?destino_i ?destino_j crlf)
+(printout t "GREEDY" crlf)
+(retract ?f)
+)
+
+; Fin de partida
 (defrule tres_en_raya
 (declare (salience 9999))
 ?f <- (Turno ?X)
