@@ -108,7 +108,7 @@
      (declare (salience 1))
      (Usuario ?nombre)
      =>
-     (printout t "Encantado " ?nombre ". A continuación te haré una serie de preguntas para realizar una recomendación de rama. Recuerda, en cualquier momento puedes escribir \"finalizar\", y realizaré una recomendación con la información que tenga hasta el momento." crlf)
+     (printout t "Encantado " ?nombre ". A continuación te haré una serie de preguntas para realizar una recomendación de rama. En caso de no querer o no poder responder a una pregunta, si escribes \"no se\" la pregunta no se tendrá en cuenta." crlf "Recuerda, en cualquier momento puedes escribir \"finalizar\", y realizaré una recomendación con la información que tenga hasta el momento." crlf "Comencemos." crlf)
     )
 
     ; -------- Realiza todas las preguntas del experto --------
