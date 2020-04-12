@@ -1,0 +1,9 @@
+# Primera parte de la práctica
+Autor: Guillermo Galindo Ortuño
+Experto: Luis Antonio Ortega Andrés
+
+Para realizar esta parte de la practica consultamos al experto Luis Antonio Ortega Andrés. Este nos recomendó realizar una serie de preguntas sobre aspectos que consideraba importantes a la hora de elegir rama, y elegir la rama que más concuerde con las respuestas obtenidas.
+
+Para esto, hemos utilizado un sistema de puntación en el que cada respuesta a cada pregunta, aumenta o disminuye la puntuación de cada una de las ramas. Así, todas las ramas comienzan con una puntuación de 0, y esta va aumentando conforme respondemos a preguntas relacionas con cada rama. Los puntos que aporta cada respuesta han sido comprobados con el experto, y son valores positivos o negativos con valor absoluto menor que 10.
+
+Con esto, al terminar todas las preguntas, o antes en caso de que se finalice la entrevista sin realizar todas las preguntas, se recomendará la rama con la mayor puntuación. Además, se podrá responder "no se" en caso de no querer responder a una de las preguntas, en cuyo caso simplemente no se utilizará esta para realizar la valoración.
