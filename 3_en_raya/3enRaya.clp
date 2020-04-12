@@ -51,7 +51,7 @@
      (Fichas_sin_colocar X 3)
     )
 
-    ; Añade si dos casillas están en linea
+    ; Añade predicados para saber si dos casillas están en linea
     (defrule En_linea
      (declare (salience 1))
      (Conectado ?i1 ?j1 ?forma ?i2 ?j2)
@@ -72,11 +72,11 @@
 
     (defrule Elige_quien_comienza
      =>
-     (printout t "Quien quieres que empieze: (escribe X para la maquina, O para empezar tu) ")
+     (printout t "Quien quieres que empiece: (escribe X para la maquina, O para empezar tu) ")
      (assert (Turno (read)))
     )
 
-    ; Comprueba si hay dos fichas en linea
+    ; Comprueba si algún jugador tiene dos fichas en linea
     (defrule 2_en_linea
      (declare (salience 2))
      (logical
